@@ -18,7 +18,14 @@ import plotly.graph_objects as go
 # ----------------------
 
 CSV_PATH = "https://drive.google.com/uc?id=1fzYJnNk24rQn_hOwiahtCRreYYXwgNkI"
-
+try:
+    # Load CSV into DataFrame
+    df = pd.read_csv(CSV_PATH)
+    st.success("Data loaded successfully from Google Drive!")
+    st.dataframe(df.head())  # Display first few rows
+except Exception as e:
+    st.error(f"Failed to load data: {e}")
+    df = pd.DataFrame()  # Empty fallback
 
 
 # In[18]:
