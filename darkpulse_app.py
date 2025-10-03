@@ -17,8 +17,8 @@ import plotly.graph_objects as go
 # Load GTD dataset
 # ----------------------
 
-CSV_PATH = "https://drive.google.com/file/d/1fzYJnNk24rQn_hOwiahtCRreYYXwgNkI/view?usp=drive_link"
-CSV_PATH
+CSV_PATH = "https://drive.google.com/file/d/1fzYJnNk24rQn_hOwiahtCRreYYXwgNkI/view?usp=sharing"
+
 
 
 # In[18]:
