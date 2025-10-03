@@ -1,419 +1,200 @@
-{
- "cells": [
-  {
-   "cell_type": "code",
-   "execution_count": 2,
-   "id": "454415fd",
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "# darkpulse_streamlit.py\n",
-    "# Streamlit app for visualizing Global\n",
-    "\n",
-    "import streamlit as st\n",
-    "import pandas as pd\n",
-    "import numpy as np\n",
-    "import plotly.express as px\n",
-    "import plotly.graph_objects as go\n",
-    "\n",
-    "# ----------------------\n",
-    "# Load GTD dataset\n",
-    "# ----------------------\n",
-    "CSV_PATH = r\"C:\\Users\\DELL\\OneDrive\\Desktop\\Plotly\\gtd_preprocessed.csv\"\n"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 3,
-   "id": "194bee2a",
-   "metadata": {},
-   "outputs": [
-    {
-     "name": "stderr",
-     "output_type": "stream",
-     "text": [
-      "2025-10-04 02:29:49.566 WARNING streamlit.runtime.caching.cache_data_api: No runtime found, using MemoryCacheStorageManager\n",
-      "2025-10-04 02:29:49.577 WARNING streamlit.runtime.caching.cache_data_api: No runtime found, using MemoryCacheStorageManager\n",
-      "2025-10-04 02:29:49.581 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:52.694 \n",
-      "  \u001b[33m\u001b[1mWarning:\u001b[0m to view this Streamlit app on a browser, run it with the following\n",
-      "  command:\n",
-      "\n",
-      "    streamlit run C:\\Users\\DELL\\AppData\\Roaming\\Python\\Python313\\site-packages\\ipykernel_launcher.py [ARGUMENTS]\n",
-      "2025-10-04 02:29:52.697 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:52.704 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:52.708 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:53.227 Thread 'Thread-3': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:53.255 Thread 'Thread-3': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:53.257 Thread 'Thread-3': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.225 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.227 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.229 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.231 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.232 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.235 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.245 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.248 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.249 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.255 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.258 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.260 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.268 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.273 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.278 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.281 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.287 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.291 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.346 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.349 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.357 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.364 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.373 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.376 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.446 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.448 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.454 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.461 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.474 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.481 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.559 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.562 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.567 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.573 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.576 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.579 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.652 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.655 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.659 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.661 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.663 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.664 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.677 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.680 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.685 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.690 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.698 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.708 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.713 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.722 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.725 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.729 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.731 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.736 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.740 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.742 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.749 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.754 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.757 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:29:59.762 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:00.147 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:00.149 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:00.153 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:00.155 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:00.157 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:00.159 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:00.160 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:00.162 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:00.164 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:00.166 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:00.174 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:00.187 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:00.193 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:00.199 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:00.207 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:00.212 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:00.215 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:00.281 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:00.284 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:00.288 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:00.289 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:00.291 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:00.292 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:00.294 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:00.295 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:00.297 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:00.303 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:00.306 Session state does not function when running a script without `streamlit run`\n",
-      "2025-10-04 02:30:00.311 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:00.321 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:00.325 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:00.994 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:00.997 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:00.999 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:01.000 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:01.002 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:01.004 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:01.006 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:01.008 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:01.011 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:01.014 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:01.019 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:01.020 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:01.022 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:01.026 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:01.032 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:06.095 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:06.112 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:06.178 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:06.180 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:06.189 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:06.205 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:06.209 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:06.211 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:06.416 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:06.420 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:06.422 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:06.424 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:06.426 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:06.429 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:06.431 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:06.434 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:07.478 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:07.486 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:07.514 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:07.515 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:07.523 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:07.528 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:07.529 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:07.536 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:07.855 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:07.857 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:07.859 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:07.861 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:07.862 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:07.864 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:07.865 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:07.868 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:08.025 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:08.027 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:08.028 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:08.030 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2025-10-04 02:30:08.031 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n"
-     ]
-    }
-   ],
-   "source": [
-    "@st.cache_data\n",
-    "def load_data(path):\n",
-    "    cols = [\n",
-    "        \"eventid\",\"iyear\",\"imonth\",\"iday\",\"country_txt\",\"region_txt\",\"provstate\",\"city\",\n",
-    "        \"latitude\",\"longitude\",\"attacktype1_txt\",\"targtype1_txt\",\"weaptype1_txt\",\n",
-    "        \"gname\",\"nkill\",\"nwound\",\"success\",\"suicide\",\"Date\"\n",
-    "    ]\n",
-    "    try:\n",
-    "        df = pd.read_csv(path, encoding=\"ISO-8859-1\", low_memory=False)\n",
-    "        df = df[[c for c in cols if c in df.columns]]\n",
-    "    except:\n",
-    "        st.warning(\"GTD CSV not found. Using sample data.\")\n",
-    "        df = pd.DataFrame({\n",
-    "            \"eventid\":[1,2,3,4,5],\n",
-    "            \"iyear\":[2001,2005,2010,2015,2019],\n",
-    "            \"imonth\":[9,6,1,12,7],\n",
-    "            \"iday\":[11,15,5,20,3],\n",
-    "            \"country_txt\":[\"USA\",\"Iraq\",\"India\",\"Syria\",\"Nigeria\"],\n",
-    "            \"region_txt\":[\"North America\",\"Middle East & North Africa\",\"South Asia\",\"Middle East & North Africa\",\"Sub-Saharan Africa\"],\n",
-    "            \"city\":[\"NY\",\"Baghdad\",\"Mumbai\",\"Aleppo\",\"Lagos\"],\n",
-    "            \"latitude\":[40.7,33.3,19.0,36.2,6.5],\n",
-    "            \"longitude\":[-74,44,72,37,3],\n",
-    "            \"attacktype1_txt\":[\"Bombing/Explosion\",\"Armed Assault\",\"Bombing/Explosion\",\"Assassination\",\"Bombing/Explosion\"],\n",
-    "            \"targtype1_txt\":[\"Civilians\",\"Military\",\"Civilians\",\"Government\",\"Civilians\"],\n",
-    "            \"weaptype1_txt\":[\"Explosives\",\"Firearms\",\"Explosives\",\"Firearms\",\"Explosives\"],\n",
-    "            \"gname\":[\"Unknown\",\"Group A\",\"Group B\",\"Group C\",\"Group D\"],\n",
-    "            \"nkill\":[3000,150,12,500,30],\n",
-    "            \"nwound\":[6000,200,30,1000,50],\n",
-    "            \"success\":[1,1,1,1,1],\n",
-    "            \"suicide\":[0,0,0,0,0]\n",
-    "        })\n",
-    "    # clean numbers\n",
-    "    df[\"nkill\"] = pd.to_numeric(df.get(\"nkill\",0), errors=\"coerce\").fillna(0)\n",
-    "    df[\"nwound\"] = pd.to_numeric(df.get(\"nwound\",0), errors=\"coerce\").fillna(0)\n",
-    "    # Ensure Date column is datetime\n",
-    "    df['event_date'] = pd.to_datetime(df['Date'], errors='coerce')\n",
-    "\n",
-    "\n",
-    "    return df\n",
-    "\n",
-    "df = load_data(CSV_PATH)\n",
-    "\n",
-    "# ----------------------\n",
-    "# Sidebar filters\n",
-    "# ----------------------\n",
-    "st.sidebar.header(\"Global Filters\")\n",
-    "\n",
-    "start_date = st.sidebar.date_input(\"Start Date\", df[\"event_date\"].min())\n",
-    "end_date = st.sidebar.date_input(\"End Date\", df[\"event_date\"].max())\n",
-    "region_sel = st.sidebar.multiselect(\"Region\", df[\"region_txt\"].unique())\n",
-    "country_sel = st.sidebar.multiselect(\"Country\", df[\"country_txt\"].unique())\n",
-    "attack_sel = st.sidebar.multiselect(\"Attack Type\", df[\"attacktype1_txt\"].unique())\n",
-    "target_sel = st.sidebar.multiselect(\"Target Type\", df[\"targtype1_txt\"].unique())\n",
-    "casualty_range = st.sidebar.slider(\"Casualty Range\", 0, int(df[\"nkill\"].max()+df[\"nwound\"].max()), (0,1000))\n",
-    "success_sel = st.sidebar.multiselect(\"Attack Success\", [1,0], default=[1])\n",
-    "suicide_sel = st.sidebar.multiselect(\"Suicide Attack\", [1,0], default=[0,1])\n",
-    "\n",
-    "# ----------------------\n",
-    "# Apply filters\n",
-    "# ----------------------\n",
-    "dff = df.copy()\n",
-    "dff = dff[(dff[\"event_date\"]>=pd.to_datetime(start_date)) & (dff[\"event_date\"]<=pd.to_datetime(end_date))]\n",
-    "if region_sel: dff = dff[dff[\"region_txt\"].isin(region_sel)]\n",
-    "if country_sel: dff = dff[dff[\"country_txt\"].isin(country_sel)]\n",
-    "if attack_sel: dff = dff[dff[\"attacktype1_txt\"].isin(attack_sel)]\n",
-    "if target_sel: dff = dff[dff[\"targtype1_txt\"].isin(target_sel)]\n",
-    "dff = dff[(dff[\"nkill\"] + dff[\"nwound\"] >= casualty_range[0]) & (dff[\"nkill\"] + dff[\"nwound\"] <= casualty_range[1])]\n",
-    "if success_sel is not None: dff = dff[dff[\"success\"].isin(success_sel)]\n",
-    "if suicide_sel is not None: dff = dff[dff[\"suicide\"].isin(suicide_sel)]\n",
-    "\n",
-    "# ----------------------\n",
-    "# KPIs\n",
-    "# ----------------------\n",
-    "st.title(\"DarkPulse: Where hidden patterns of terror come to light\")\n",
-    "col1,col2,col3,col4 = st.columns(4)\n",
-    "col1.metric(\"Total Attacks\", f\"{len(dff):,}\")\n",
-    "col2.metric(\"Total Fatalities\", f\"{int(dff['nkill'].sum()):,}\")\n",
-    "col3.metric(\"Total Wounded\", f\"{int(dff['nwound'].sum()):,}\")\n",
-    "deadliest = dff.groupby(\"region_txt\")[\"nkill\"].sum().idxmax() if not dff.empty else \"N/A\"\n",
-    "col4.metric(\"Deadliest Region\", deadliest)\n",
-    "\n",
-    "# ----------------------\n",
-    "# Trends over time\n",
-    "st.subheader(\"Attacks Over Time\")\n",
-    "agg = st.selectbox(\"Aggregation\", [\"Yearly\", \"Monthly\", \"Decade\"], index=0)\n",
-    "\n",
-    "# Ensure event_date is datetime\n",
-    "dff['event_date'] = pd.to_datetime(dff['Date'], errors='coerce')\n",
-    "\n",
-    "if agg == \"Monthly\":\n",
-    "    ts = dff.groupby(pd.Grouper(key=\"event_date\", freq=\"M\")).size().reset_index(name=\"attacks\")\n",
-    "    fig_trend = px.line(ts, x=\"event_date\", y=\"attacks\", title=\"Attacks Over Time (Monthly)\")\n",
-    "elif agg == \"Decade\":\n",
-    "    dff['decade'] = (dff['event_date'].dt.year // 10) * 10\n",
-    "    ts = dff.groupby('decade').size().reset_index(name=\"attacks\")\n",
-    "    fig_trend = px.line(ts, x=\"decade\", y=\"attacks\", title=\"Attacks Over Time (Decade)\")\n",
-    "else:  # Yearly\n",
-    "    dff['year'] = dff['event_date'].dt.year\n",
-    "    ts = dff.groupby('year').size().reset_index(name=\"attacks\")\n",
-    "    fig_trend = px.line(ts, x=\"year\", y=\"attacks\", title=\"Attacks Over Time (Yearly)\")\n",
-    "\n",
-    "st.plotly_chart(fig_trend, use_container_width=True)\n",
-    "\n",
-    "\n",
-    "# ----------------------\n",
-    "# Global Map\n",
-    "# ----------------------\n",
-    "st.subheader(\"Global Distribution of Attacks\")\n",
-    "color_by = st.selectbox(\"Color by\", [\"Attack Type\",\"Casualty\"], index=0)\n",
-    "\n",
-    "if color_by==\"Casualty\":\n",
-    "    dff[\"casualty\"] = dff[\"nkill\"] + dff[\"nwound\"]\n",
-    "    fig_map = px.scatter_geo(dff, lat=\"latitude\", lon=\"longitude\", size=\"casualty\",\n",
-    "                             hover_name=\"country_txt\",\n",
-    "                             hover_data=[\"gname\",\"attacktype1_txt\",\"targtype1_txt\",\"nkill\",\"nwound\"],\n",
-    "                             title=\"Global Distribution of Attacks (Casualty)\")\n",
-    "else:\n",
-    "    fig_map = px.scatter_geo(dff, lat=\"latitude\", lon=\"longitude\", color=\"attacktype1_txt\",\n",
-    "                             hover_name=\"country_txt\",\n",
-    "                             hover_data=[\"gname\",\"nkill\",\"nwound\"],\n",
-    "                             title=\"Global Distribution of Attacks (Attack Type)\")\n",
-    "\n",
-    "st.plotly_chart(fig_map, use_container_width=True)\n",
-    "\n",
-    "# ----------------------\n",
-    "# Most active groups\n",
-    "# ----------------------\n",
-    "st.subheader(\"Most Active Terrorist Groups\")\n",
-    "top_groups = dff.groupby(\"gname\").size().reset_index(name=\"attacks\").sort_values(\"attacks\", ascending=False).head(20)\n",
-    "fig_groups = px.bar(top_groups, x=\"attacks\", y=\"gname\", orientation=\"h\")\n",
-    "st.plotly_chart(fig_groups, use_container_width=True)\n",
-    "\n",
-    "# ----------------------\n",
-    "# Attack types vs casualties\n",
-    "# ----------------------\n",
-    "st.subheader(\"Attack Types vs Fatalities (Box Plot)\")\n",
-    "fig_box = px.box(dff, x=\"attacktype1_txt\", y=\"nkill\", points=\"all\")\n",
-    "st.plotly_chart(fig_box, use_container_width=True)\n",
-    "\n",
-    "# ----------------------\n",
-    "# Target vs Weapon Heatmap\n",
-    "# ----------------------\n",
-    "st.subheader(\"Target Types vs Weapon Types (Heatmap)\")\n",
-    "heat = pd.crosstab(dff[\"targtype1_txt\"], dff[\"weaptype1_txt\"]).astype(float)\n",
-    "fig_heat = px.imshow(heat, labels=dict(x=\"Weapon Type\", y=\"Target Type\", color=\"Count\"))\n",
-    "st.plotly_chart(fig_heat, use_container_width=True)\n",
-    "\n",
-    "# ----------------------\n",
-    "# Seasonal Pattern\n",
-    "# ----------------------\n",
-    "st.subheader(\"Seasonal Attack Pattern (Polar)\")\n",
-    "if not dff.empty:\n",
-    "    dff[\"month\"] = dff[\"event_date\"].dt.month\n",
-    "    monthly = dff.groupby(\"month\").size().reindex(range(1,13), fill_value=0).reset_index(name=\"attacks\")\n",
-    "    fig_polar = px.line_polar(monthly, r=\"attacks\", theta=\"month\", line_close=True)\n",
-    "    st.plotly_chart(fig_polar, use_container_width=True)\n"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 4,
-   "id": "e2af5529",
-   "metadata": {},
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "Index(['eventid', 'country_txt', 'region_txt', 'provstate', 'city', 'latitude',\n",
-      "       'longitude', 'attacktype1_txt', 'targtype1_txt', 'weaptype1_txt',\n",
-      "       'gname', 'nkill', 'nwound', 'success', 'suicide', 'Date', 'event_date'],\n",
-      "      dtype='object')\n"
-     ]
-    }
-   ],
-   "source": [
-    "print(df.columns)"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 6,
-   "id": "710009cf",
-   "metadata": {},
-   "outputs": [
-    {
-     "name": "stderr",
-     "output_type": "stream",
-     "text": [
-      "Usage: streamlit run [OPTIONS] TARGET [ARGS]...\n",
-      "Try 'streamlit run --help' for help.\n",
-      "\n",
-      "Error: Streamlit requires raw Python (.py) files, not .ipynb.\n",
-      "For more information, please see https://docs.streamlit.io\n"
-     ]
-    }
-   ],
-   "source": [
-    "!streamlit run \"C:/Users/DELL/OneDrive/Desktop/Plotly/darkpulse_app.ipynb\"\n"
-   ]
-  }
- ],
- "metadata": {
-  "kernelspec": {
-   "display_name": "Python 3",
-   "language": "python",
-   "name": "python3"
-  },
-  "language_info": {
-   "codemirror_mode": {
-    "name": "ipython",
-    "version": 3
-   },
-   "file_extension": ".py",
-   "mimetype": "text/x-python",
-   "name": "python",
-   "nbconvert_exporter": "python",
-   "pygments_lexer": "ipython3",
-   "version": "3.13.5"
-  }
- },
- "nbformat": 4,
- "nbformat_minor": 5
-}
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[15]:
+
+
+# darkpulse_streamlit.py
+# Streamlit app for visualizing Global
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+import plotly.express as px
+import plotly.graph_objects as go
+
+# ----------------------
+# Load GTD dataset
+# ----------------------
+
+CSV_PATH = "https://drive.google.com/file/d/1fzYJnNk24rQn_hOwiahtCRreYYXwgNkI/view?usp=drive_link"
+CSV_PATH
+
+
+# In[18]:
+
+
+@st.cache_data
+def load_data(path):
+    cols = [
+        "eventid","iyear","imonth","iday","country_txt","region_txt","provstate","city",
+        "latitude","longitude","attacktype1_txt","targtype1_txt","weaptype1_txt",
+        "gname","nkill","nwound","success","suicide","Date"
+    ]
+    try:
+        df = pd.read_csv(path, encoding="ISO-8859-1", low_memory=False)
+        df = df[[c for c in cols if c in df.columns]]
+    except:
+        st.warning("GTD CSV not found. Using sample data.")
+        df = pd.DataFrame({
+            "eventid":[1,2,3,4,5],
+            "iyear":[2001,2005,2010,2015,2019],
+            "imonth":[9,6,1,12,7],
+            "iday":[11,15,5,20,3],
+            "country_txt":["USA","Iraq","India","Syria","Nigeria"],
+            "region_txt":["North America","Middle East & North Africa","South Asia","Middle East & North Africa","Sub-Saharan Africa"],
+            "city":["NY","Baghdad","Mumbai","Aleppo","Lagos"],
+            "latitude":[40.7,33.3,19.0,36.2,6.5],
+            "longitude":[-74,44,72,37,3],
+            "attacktype1_txt":["Bombing/Explosion","Armed Assault","Bombing/Explosion","Assassination","Bombing/Explosion"],
+            "targtype1_txt":["Civilians","Military","Civilians","Government","Civilians"],
+            "weaptype1_txt":["Explosives","Firearms","Explosives","Firearms","Explosives"],
+            "gname":["Unknown","Group A","Group B","Group C","Group D"],
+            "nkill":[3000,150,12,500,30],
+            "nwound":[6000,200,30,1000,50],
+            "success":[1,1,1,1,1],
+            "suicide":[0,0,0,0,0]
+        })
+
+    # clean numbers
+    df["nkill"] = pd.to_numeric(df.get("nkill",0), errors="coerce").fillna(0)
+    df["nwound"] = pd.to_numeric(df.get("nwound",0), errors="coerce").fillna(0)
+
+    # Handle Date
+    if "Date" in df.columns:
+        df["event_date"] = pd.to_datetime(df["Date"], errors="coerce")
+    else:
+        df["imonth"] = df["imonth"].replace(0, 1)
+        df["iday"] = df["iday"].replace(0, 1)
+        df["event_date"] = pd.to_datetime(
+            df["iyear"].astype(str) + "-" +
+            df["imonth"].astype(str).str.zfill(2) + "-" +
+            df["iday"].astype(str).str.zfill(2),
+            errors="coerce"
+        )
+
+    return df
+
+df = load_data(CSV_PATH)
+
+
+# ----------------------
+# Sidebar filters
+# ----------------------
+st.sidebar.header("Global Filters")
+
+start_date = st.sidebar.date_input("Start Date", df["event_date"].min())
+end_date = st.sidebar.date_input("End Date", df["event_date"].max())
+region_sel = st.sidebar.multiselect("Region", df["region_txt"].unique())
+country_sel = st.sidebar.multiselect("Country", df["country_txt"].unique())
+attack_sel = st.sidebar.multiselect("Attack Type", df["attacktype1_txt"].unique())
+target_sel = st.sidebar.multiselect("Target Type", df["targtype1_txt"].unique())
+casualty_range = st.sidebar.slider("Casualty Range", 0, int(df["nkill"].max()+df["nwound"].max()), (0,1000))
+success_sel = st.sidebar.multiselect("Attack Success", [1,0], default=[1])
+suicide_sel = st.sidebar.multiselect("Suicide Attack", [1,0], default=[0,1])
+
+# ----------------------
+# Apply filters
+# ----------------------
+dff = df.copy()
+dff = dff[(dff["event_date"]>=pd.to_datetime(start_date)) & (dff["event_date"]<=pd.to_datetime(end_date))]
+if region_sel: dff = dff[dff["region_txt"].isin(region_sel)]
+if country_sel: dff = dff[dff["country_txt"].isin(country_sel)]
+if attack_sel: dff = dff[dff["attacktype1_txt"].isin(attack_sel)]
+if target_sel: dff = dff[dff["targtype1_txt"].isin(target_sel)]
+dff = dff[(dff["nkill"] + dff["nwound"] >= casualty_range[0]) & (dff["nkill"] + dff["nwound"] <= casualty_range[1])]
+if success_sel is not None: dff = dff[dff["success"].isin(success_sel)]
+if suicide_sel is not None: dff = dff[dff["suicide"].isin(suicide_sel)]
+
+# ----------------------
+# KPIs
+# ----------------------
+st.title("DarkPulse: Where hidden patterns of terror come to light")
+col1,col2,col3,col4 = st.columns(4)
+col1.metric("Total Attacks", f"{len(dff):,}")
+col2.metric("Total Fatalities", f"{int(dff['nkill'].sum()):,}")
+col3.metric("Total Wounded", f"{int(dff['nwound'].sum()):,}")
+deadliest = dff.groupby("region_txt")["nkill"].sum().idxmax() if not dff.empty else "N/A"
+col4.metric("Deadliest Region", deadliest)
+
+# ----------------------
+# Trends over time
+st.subheader("Attacks Over Time")
+agg = st.selectbox("Aggregation", ["Yearly", "Monthly", "Decade"], index=0)
+
+# Ensure event_date is datetime (already handled in load_data, but just in case)
+dff['event_date'] = pd.to_datetime(dff['event_date'], errors='coerce')
+
+if agg == "Monthly":
+    ts = dff.groupby(pd.Grouper(key="event_date", freq="M")).size().reset_index(name="attacks")
+    fig_trend = px.line(ts, x="event_date", y="attacks", title="Attacks Over Time (Monthly)")
+
+elif agg == "Decade":
+    dff['decade'] = (dff['event_date'].dt.year // 10) * 10
+    ts = dff.groupby('decade').size().reset_index(name="attacks")
+    fig_trend = px.line(ts, x="decade", y="attacks", title="Attacks Over Time (Decade)")
+
+else:  # Yearly
+    dff['year'] = dff['event_date'].dt.year
+    ts = dff.groupby('year').size().reset_index(name="attacks")
+    fig_trend = px.line(ts, x="year", y="attacks", title="Attacks Over Time (Yearly)")
+
+st.plotly_chart(fig_trend, use_container_width=True)
+
+
+
+# ----------------------
+# Global Map
+# ----------------------
+st.subheader("Global Distribution of Attacks")
+color_by = st.selectbox("Color by", ["Attack Type","Casualty"], index=0)
+
+if color_by=="Casualty":
+    dff["casualty"] = dff["nkill"] + dff["nwound"]
+    fig_map = px.scatter_geo(dff, lat="latitude", lon="longitude", size="casualty",
+                             hover_name="country_txt",
+                             hover_data=["gname","attacktype1_txt","targtype1_txt","nkill","nwound"],
+                             title="Global Distribution of Attacks (Casualty)")
+else:
+    fig_map = px.scatter_geo(dff, lat="latitude", lon="longitude", color="attacktype1_txt",
+                             hover_name="country_txt",
+                             hover_data=["gname","nkill","nwound"],
+                             title="Global Distribution of Attacks (Attack Type)")
+
+st.plotly_chart(fig_map, use_container_width=True)
+
+# ----------------------
+# Most active groups
+# ----------------------
+st.subheader("Most Active Terrorist Groups")
+top_groups = dff.groupby("gname").size().reset_index(name="attacks").sort_values("attacks", ascending=False).head(20)
+fig_groups = px.bar(top_groups, x="attacks", y="gname", orientation="h")
+st.plotly_chart(fig_groups, use_container_width=True)
+
+# ----------------------
+# Attack types vs casualties
+# ----------------------
+st.subheader("Attack Types vs Fatalities (Box Plot)")
+fig_box = px.box(dff, x="attacktype1_txt", y="nkill", points="all")
+st.plotly_chart(fig_box, use_container_width=True)
+
+# ----------------------
+# Target vs Weapon Heatmap
+# ----------------------
+st.subheader("Target Types vs Weapon Types (Heatmap)")
+heat = pd.crosstab(dff["targtype1_txt"], dff["weaptype1_txt"]).astype(float)
+fig_heat = px.imshow(heat, labels=dict(x="Weapon Type", y="Target Type", color="Count"))
+st.plotly_chart(fig_heat, use_container_width=True)
+
+# ----------------------
+# Seasonal Pattern
+# ----------------------
+st.subheader("Seasonal Attack Pattern (Polar)")
+if not dff.empty:
+    dff["month"] = dff["event_date"].dt.month
+    monthly = dff.groupby("month").size().reindex(range(1,13), fill_value=0).reset_index(name="attacks")
+    fig_polar = px.line_polar(monthly, r="attacks", theta="month", line_close=True)
+    st.plotly_chart(fig_polar, use_container_width=True)
+
+
+# In[19]:
