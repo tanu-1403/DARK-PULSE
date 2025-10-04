@@ -11,7 +11,7 @@ st.markdown("""
         /* Background and layout */
         .stApp {
             background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.9)), 
-                        url('https://images.unsplash.com/photo-1526379095098-d400fd0bf935?auto=format&fit=crop&w=1600&q=80');
+                        url(https://unsplash.com/photos/a-black-and-white-photo-of-a-very-tall-building-pvoTDUc1fZk);
             background-size: cover;
             background-attachment: fixed;
             color: #e5e5e5;
