@@ -3,7 +3,7 @@ import pandas as pd
 import plotly.express as px
 
 # --- PAGE CONFIG ---
-st.set_page_config(page_title="DarkPulse", layout="wide", page_icon="🌑")
+st.set_page_config(page_title="DarkPulse", layout="wide", page_icon="💣")
 
 # --- CUSTOM CSS ---
 st.markdown("""
@@ -11,7 +11,7 @@ st.markdown("""
         /* Background and layout */
         .stApp {
             background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.9)), 
-                        url(https://unsplash.com/photos/a-black-and-white-photo-of-a-very-tall-building-pvoTDUc1fZk);
+                        url(https://images.unsplash.com/photo-pvoTDUc1fZk?auto=format&fit=crop&w=1600&q=80);
             background-size: cover;
             background-attachment: fixed;
             color: #e5e5e5;
