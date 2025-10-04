@@ -1,3 +1,69 @@
+import streamlit as st
+import pandas as pd
+import plotly.express as px
+
+# --- PAGE CONFIG ---
+st.set_page_config(page_title="DarkPulse", layout="wide", page_icon="🌑")
+
+# --- CUSTOM CSS ---
+st.markdown("""
+    <style>
+        /* Background and layout */
+        .stApp {
+            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.9)), 
+                        url('https://images.unsplash.com/photo-1526379095098-d400fd0bf935?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            color: #e5e5e5;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Title */
+        h1 {
+            text-align: center;
+            font-size: 2.8rem !important;
+            color: #f5f5f5 !important;
+            text-shadow: 0 0 25px rgba(255,255,255,0.1);
+        }
+
+        /* KPI Cards */
+        [data-testid="stMetricValue"] {
+            color: #f0f0f0 !important;
+            font-weight: 700 !important;
+        }
+
+        /* Sidebar */
+        section[data-testid="stSidebar"] {
+            background: rgba(20,20,20,0.85);
+            backdrop-filter: blur(6px);
+        }
+
+        /* Charts */
+        .plotly {
+            background-color: rgba(255,255,255,0);
+        }
+
+        /* Subheaders */
+        h2, h3 {
+            color: #fafafa !important;
+            border-left: 4px solid #cc4444;
+            padding-left: 10px;
+            margin-top: 40px;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
+# --- HEADER / HERO SECTION ---
+st.markdown("""
+    <div style='text-align:center; margin-top: -30px;'>
+        <h1>🌑 DarkPulse</h1>
+        <p style='font-size:1.1rem; color:#cccccc;'>
+            Illuminating unseen patterns in a world shadowed by fear.
+        </p>
+        <hr style='border: 0.5px solid rgba(255,255,255,0.2); width:60%; margin:auto;'>
+    </div>
+""", unsafe_allow_html=True)
+
 #!/usr/bin/env python
 # coding: utf-8
 
