@@ -77,17 +77,6 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# --- HEADER SECTION WITH LOGO ---
-st.markdown("""
-<div style='text-align:center;'>
-    <img src='https://upload.wikimedia.org/wikipedia/commons/2/25/Red_circle_icon.svg' 
-         width='70' style='filter:drop-shadow(0 0 20px rgba(255,0,0,0.6)); margin-bottom:10px;'>
-    <h1>DARKPULSE</h1>
-    <p class='subtitle'>Illuminating unseen patterns in a world shadowed by fear</p>
-    <hr style='border: 0.5px solid rgba(255,255,255,0.15); width:60%; margin:auto;'>
-</div>
-""", unsafe_allow_html=True)
-
 # --- LOAD DATA ---
 @st.cache_data
 def load_data():
@@ -184,6 +173,7 @@ if not dff.empty:
     """, unsafe_allow_html=True)
 else:
     st.info("No data available for the selected filters.")
+
 
 
 
