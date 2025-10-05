@@ -12,8 +12,8 @@ st.markdown("""
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
 
 .stApp {
-    /* Destructive black-and-white urban destruction image */
-    background-image: url("https://images.unsplash.com/photo-1526406915894-9c90c2a8ee7d?ixlib=rb-4.0.3&q=80&w=1600&auto=format&fit=crop");
+    /* Background image placeholder: Add your own image URL below */
+    background-image: url("");
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -39,25 +39,31 @@ st.markdown("""
     z-index: -1;
 }
 
-h1 {
-    font-family: 'Orbitron', sans-serif;
-    color: #ff4d4d !important;
+/* Header styling */
+.header {
     text-align: center;
-    font-size: 3rem !important;
-    text-shadow: 0 0 40px rgba(255,70,70,0.4);
-    letter-spacing: 1.5px;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    font-family: 'Orbitron', sans-serif;
+    color: #ff4d4d;
+    font-size: 4rem;
+    text-shadow: 0 0 60px rgba(255,70,70,0.5);
+    letter-spacing: 2px;
+    margin-bottom: 0px;
     text-transform: uppercase;
 }
 
-.subtitle {
-    text-align: center;
+.header p {
+    font-family: 'Exo 2', sans-serif;
     color: #cccccc;
+    font-size: 1.2rem;
     font-style: italic;
-    font-size: 1.15rem;
-    margin-top: -10px;
-    margin-bottom: 20px;
+    margin-top: 5px;
 }
 
+/* KPI Cards */
 .kpi-card {
     background: rgba(25, 25, 25, 0.7);
     padding: 20px;
@@ -77,6 +83,14 @@ section[data-testid="stSidebar"] {
     backdrop-filter: blur(10px);
 }
 </style>
+""", unsafe_allow_html=True)
+
+# --- HEADER ---
+st.markdown("""
+<div class="header">
+    <h1>DARK PULSE</h1>
+    <p>Illuminating unseen patterns in a world shadowed by fear.</p>
+</div>
 """, unsafe_allow_html=True)
 
 # --- LOAD DATA ---
