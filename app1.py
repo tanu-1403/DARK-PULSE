@@ -83,7 +83,7 @@ import plotly.graph_objects as go
 # Load GTD dataset
 # ----------------------
 
-CSV_PATH = "https://drive.google.com/uc?id=1fzYJnNk24rQn_hOwiahtCRreYYXwgNkI"
+CSV_PATH = "https://drive.google.com/file/d/1fzYJnNk24rQn_hOwiahtCRreYYXwgNkI/view?usp=drive_link"
 try:
     # Load CSV into DataFrame
     df = pd.read_csv(CSV_PATH)
@@ -280,6 +280,7 @@ if not dff.empty:
     monthly = dff.groupby("month").size().reindex(range(1,13), fill_value=0).reset_index(name="attacks")
     fig_polar = px.line_polar(monthly, r="attacks", theta="month", line_close=True)
     st.plotly_chart(fig_polar, use_container_width=True)
+
 
 
 # In[19]:
