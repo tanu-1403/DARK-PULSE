@@ -13,7 +13,7 @@ st.markdown("""
 
 .stApp {
     /* Background image placeholder: Add your own image URL below */
-    background-image: url("Terror-Attacks~2.jpg");
+    background-image: url("https://github.com/tanu-1403/DARK-PULSE/blob/main/Terror-Attacks~2.jpg");
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -189,4 +189,5 @@ if not dff.empty:
     """, unsafe_allow_html=True)
 else:
     st.info("No data available for the selected filters.")
+
 
