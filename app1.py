@@ -7,23 +7,26 @@ st.set_page_config(page_title="DarkPulse", layout="wide", page_icon="💣")
 
 # --- STYLES ---
 st.markdown("""
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Exo+2:wght@400;600&display=swap" rel="stylesheet">
 <style>
-    @keyframes fadePulse {
-        0% {opacity: 0.95;}
-        50% {opacity: 0.85;}
-        100% {opacity: 0.95;}
-    }
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600&display=swap');
 
-    .stApp {
-         background-image: url("https://images.unsplash.com/photo-1508923567004-3a6b8004f3d5?ixlib=rb-4.0.3&q=80&w=1600&auto=format&fit=crop");
-         background-size: cover;
-         background-position: center;
-         background-attachment: fixed;
-         animation: fadePulse 18s ease-in-out infinite;
-         color: #eaeaea;
-         font-family: 'Exo 2', sans-serif;
-    }
+   .stApp {
+       /* Handpicked black-and-white tall building image */
+       background-image: url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&q=80&w=1600&auto=format&fit=crop");
+       background-size: cover;
+       background-position: center;
+       background-attachment: fixed;
+       animation: fadePulse 18s ease-in-out infinite;
+       color: #eaeaea;
+    font-family: 'Exo 2', sans-serif;
+   }
+
+    /* Subtle fade animation */
+    @keyframes fadePulse {
+        0% { opacity: 0.95; }
+        50% { opacity: 1; }
+        100% { opacity: 0.95; }
+   }
     /* Dark overlay for readability */
     .stApp::before {
         content: "";
@@ -181,6 +184,7 @@ if not dff.empty:
     """, unsafe_allow_html=True)
 else:
     st.info("No data available for the selected filters.")
+
 
 
 
