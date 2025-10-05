@@ -16,15 +16,14 @@ st.markdown("""
     }
 
     .stApp {
-        background-image: url(https://images.unsplash.com/photo-1508923567004-3a6b8004f3d5?ixlib=rb-4.0.3&q=80&w=1600&auto=format&fit=crop);
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-        animation: fadePulse 18s ease-in-out infinite;
-        color: #eaeaea;
-        font-family: 'Exo 2', sans-serif;
-    }
-
+    background-image: url("https://images.unsplash.com/photo-1508923567004-3a6b8004f3d5?ixlib=rb-4.0.3&q=80&w=1600&auto=format&fit=crop");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    animation: fadePulse 18s ease-in-out infinite;
+    color: #eaeaea;
+    font-family: 'Exo 2', sans-serif;
+}
     /* Dark overlay for readability */
     .stApp::before {
         content: "";
@@ -182,4 +181,5 @@ if not dff.empty:
     """, unsafe_allow_html=True)
 else:
     st.info("No data available for the selected filters.")
+
 
