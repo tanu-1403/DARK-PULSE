@@ -9,71 +9,73 @@ st.set_page_config(page_title="DarkPulse", layout="wide", page_icon="💣")
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
 
-   .stApp {
-       /* Handpicked black-and-white tall building image */
-       background-image: url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&q=80&w=1600&auto=format&fit=crop");
-       background-size: cover;
-       background-position: center;
-       background-attachment: fixed;
-       animation: fadePulse 18s ease-in-out infinite;
-       color: #eaeaea;
+.stApp {
+    /* Destructive black-and-white urban destruction image */
+    background-image: url("https://images.unsplash.com/photo-1526406915894-9c90c2a8ee7d?ixlib=rb-4.0.3&q=80&w=1600&auto=format&fit=crop");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    animation: fadePulse 18s ease-in-out infinite;
+    color: #eaeaea;
     font-family: 'Exo 2', sans-serif;
-   }
+}
 
-    /* Subtle fade animation */
-    @keyframes fadePulse {
-        0% { opacity: 0.95; }
-        50% { opacity: 1; }
-        100% { opacity: 0.95; }
-   }
-    /* Dark overlay for readability */
-    .stApp::before {
-        content: "";
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        background: rgba(0,0,0,0.78);
-        z-index: -1;
-    }
+/* Subtle fade animation */
+@keyframes fadePulse {
+    0% { opacity: 0.95; }
+    50% { opacity: 1; }
+    100% { opacity: 0.95; }
+}
 
-    h1 {
-        font-family: 'Orbitron', sans-serif;
-        color: #ff4d4d !important;
-        text-align: center;
-        font-size: 3rem !important;
-        text-shadow: 0 0 40px rgba(255,70,70,0.4);
-        letter-spacing: 1.5px;
-        text-transform: uppercase;
-    }
+/* Dark overlay for readability */
+.stApp::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.78);
+    z-index: -1;
+}
 
-    .subtitle {
-        text-align: center;
-        color: #cccccc;
-        font-style: italic;
-        font-size: 1.15rem;
-        margin-top: -10px;
-        margin-bottom: 20px;
-    }
+h1 {
+    font-family: 'Orbitron', sans-serif;
+    color: #ff4d4d !important;
+    text-align: center;
+    font-size: 3rem !important;
+    text-shadow: 0 0 40px rgba(255,70,70,0.4);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
 
-    .kpi-card {
-        background: rgba(25, 25, 25, 0.7);
-        padding: 20px;
-        border-radius: 16px;
-        text-align: center;
-        box-shadow: 0 0 20px rgba(255,0,0,0.15);
-        transition: all 0.3s ease;
-    }
+.subtitle {
+    text-align: center;
+    color: #cccccc;
+    font-style: italic;
+    font-size: 1.15rem;
+    margin-top: -10px;
+    margin-bottom: 20px;
+}
 
-    .kpi-card:hover {
-        box-shadow: 0 0 35px rgba(255,0,0,0.3);
-        transform: scale(1.03);
-    }
+.kpi-card {
+    background: rgba(25, 25, 25, 0.7);
+    padding: 20px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(255,0,0,0.15);
+    transition: all 0.3s ease;
+}
 
-    section[data-testid="stSidebar"] {
-        background: rgba(10,10,10,0.9);
-        backdrop-filter: blur(10px);
-    }
+.kpi-card:hover {
+    box-shadow: 0 0 35px rgba(255,0,0,0.3);
+    transform: scale(1.03);
+}
+
+section[data-testid="stSidebar"] {
+    background: rgba(10,10,10,0.9);
+    backdrop-filter: blur(10px);
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -173,8 +175,3 @@ if not dff.empty:
     """, unsafe_allow_html=True)
 else:
     st.info("No data available for the selected filters.")
-
-
-
-
-
