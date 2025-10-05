@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
 import plotly.express as px
+import plotly.graph_objects as go
 
 # --- Page setup ---
 st.set_page_config(
@@ -85,12 +87,6 @@ st.markdown("""
 # darkpulse_streamlit.py
 # Streamlit app for visualizing Global
 
-import streamlit as st
-import pandas as pd
-import numpy as np
-import plotly.express as px
-import plotly.graph_objects as go
-
 # ----------------------
 # Load GTD dataset
 # ----------------------
@@ -115,7 +111,7 @@ def load_data(path):
         "eventid", "country_txt", "region_txt", 
         "latitude", "longitude",
         "attacktype1_txt", "gname","success","suicide",
-        "nkill", "nwound","targtype1_txt","weaptype1_txt","event_date"
+        "nkill", "nwound","targtype1_txt","weaptype1_txt","Date"
     ]
 
     try:
@@ -146,7 +142,7 @@ def load_data(path):
     for col in ["nkill", "nwound"]:
         df[col] = pd.to_numeric(df.get(col, 0), errors="coerce").fillna(0)
 
-   df["event_date"] = pd.to_datetime(df["event_date"], errors="coerce")
+   df["event_date"] = pd.to_datetime(df["Date"], errors="coerce")
 
     return df
 
@@ -275,4 +271,5 @@ if not dff.empty:
 
 
 # In[19]:
+
 
