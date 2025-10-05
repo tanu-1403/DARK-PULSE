@@ -106,45 +106,53 @@ except Exception as e:
 
 @st.cache_data
 def load_data(path):
-    # ✅ Keep only columns useful for visualizations
     cols = [
-        "eventid", "country_txt", "region_txt", 
-        "latitude", "longitude",
-        "attacktype1_txt", "gname","success","suicide",
-        "nkill", "nwound","targtype1_txt","weaptype1_txt","Date"
+        "eventid", "Date", "country_txt", "region_txt", "provstate", "city",
+        "latitude", "longitude", "attacktype1_txt", "targtype1_txt", "weaptype1_txt",
+        "gname", "nkill", "nwound", "success", "suicide"
     ]
 
     try:
-        df = pd.read_csv(CSV_PATH, encoding="ISO-8859-1", low_memory=False)
+        df = pd.read_csv(path, encoding="ISO-8859-1", low_memory=False)
         df = df[[c for c in cols if c in df.columns]]
-
-    except Exception as e:
-        st.warning(f"GTD CSV not found or unreadable. Using sample data.\n{e}")
+    except Exception:
+        st.warning("⚠️ GTD CSV not found. Using sample data.")
         df = pd.DataFrame({
-            "eventid":[1,2,3,4,5],
-            "country_txt":["USA","Iraq","India","Syria","Nigeria"],
-            "region_txt":["North America","Middle East & North Africa","South Asia",
-                          "Middle East & North Africa","Sub-Saharan Africa"],
-            "latitude":[40.7,33.3,19.0,36.2,6.5],
-            "longitude":[-74,44,72,37,3],
-            "attacktype1_txt":["Bombing/Explosion","Armed Assault","Bombing/Explosion",
-                               "Assassination","Bombing/Explosion"],
-            "targtype1_txt":["Civilians","Military","Civilians","Government","Civilians"],
-            "weaptype1_txt":["Explosives","Firearms","Explosives","Firearms","Explosives"],
-            "gname":["Unknown","Group A","Group B","Group C","Group D"],
-            "nkill":[3000,150,12,500,30],
-            "nwound":[6000,200,30,1000,50],
-            "success": [1,1,1,1,1],
-            "suicide": [0,0,0,0,0]
+            "eventid": [1, 2, 3, 4, 5],
+            "Date": pd.to_datetime(
+                ["2001-09-11", "2005-06-15", "2010-01-05", "2015-12-20", "2019-07-03"]
+            ),
+            "country_txt": ["USA", "Iraq", "India", "Syria", "Nigeria"],
+            "region_txt": ["North America", "Middle East & North Africa", "South Asia",
+                           "Middle East & North Africa", "Sub-Saharan Africa"],
+            "city": ["NY", "Baghdad", "Mumbai", "Aleppo", "Lagos"],
+            "latitude": [40.7, 33.3, 19.0, 36.2, 6.5],
+            "longitude": [-74, 44, 72, 37, 3],
+            "attacktype1_txt": ["Bombing/Explosion", "Armed Assault", "Bombing/Explosion",
+                                "Assassination", "Bombing/Explosion"],
+            "targtype1_txt": ["Civilians", "Military", "Civilians", "Government", "Civilians"],
+            "weaptype1_txt": ["Explosives", "Firearms", "Explosives", "Firearms", "Explosives"],
+            "gname": ["Unknown", "Group A", "Group B", "Group C", "Group D"],
+            "nkill": [3000, 150, 12, 500, 30],
+            "nwound": [6000, 200, 30, 1000, 50],
+            "success": [1, 1, 1, 1, 1],
+            "suicide": [0, 0, 0, 0, 0]
         })
 
-    # ✅ Ensure numeric fields are clean
-    for col in ["nkill", "nwound"]:
-        df[col] = pd.to_numeric(df.get(col, 0), errors="coerce").fillna(0)
+    # Clean numeric columns
+    df["nkill"] = pd.to_numeric(df.get("nkill", 0), errors="coerce").fillna(0)
+    df["nwound"] = pd.to_numeric(df.get("nwound", 0), errors="coerce").fillna(0)
 
-   df["event_date"] = pd.to_datetime(df["Date"], errors="coerce")
+    # ✅ Ensure proper datetime conversion
+    df["event_date"] = pd.to_datetime(df["Date"], errors="coerce")
+
+    # ✅ Optional: reduce data for performance
+    if len(df) > 50000:
+        st.info("Sampling 50,000 records to reduce lag ⚡")
+        df = df.sample(50000, random_state=42)
 
     return df
+
 
 
 df = load_data(CSV_PATH)
@@ -271,5 +279,6 @@ if not dff.empty:
 
 
 # In[19]:
+
 
 
