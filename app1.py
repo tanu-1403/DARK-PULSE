@@ -2,29 +2,41 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-# --- PAGE CONFIG ---
-st.set_page_config(page_title="DarkPulse", layout="wide", page_icon="💣")
+# --- Page setup ---
+st.set_page_config(
+    page_title="DarkPulse: Terrorism Analytics Dashboard",
+    layout="wide"
+)
 
-# --- CUSTOM CSS ---
+# --- Background + Style ---
 st.markdown("""
-    <style>
-        /* Background and layout */
-        .stApp {
-            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.9)), 
-                        url(https://images.unsplash.com/photo-pvoTDUc1fZk?auto=format&fit=crop&w=1600&q=80);
-            background-size: cover;
-            background-attachment: fixed;
-            color: #e5e5e5;
-            font-family: 'Inter', sans-serif;
-        }
+<style>
+/* Whole background */
+[data-testid="stAppViewContainer"] {
+    background: linear-gradient(
+        rgba(10,10,10,0.85), rgba(20,20,20,0.95)
+    ),
+    url('https://images.unsplash.com/photo-1600101021653-cf2b00a9f6b8?auto=format&fit=crop&w=1600&q=80');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+}
 
-        /* Title */
-        h1 {
-            text-align: center;
-            font-size: 2.8rem !important;
-            color: #f5f5f5 !important;
-            text-shadow: 0 0 25px rgba(255,255,255,0.1);
-        }
+/* Sidebar */
+[data-testid="stSidebar"] {
+    background: rgba(20, 20, 20, 0.9);
+}
+
+/* Text colors */
+h1, h2, h3, h4, h5, h6, p, div, span {
+    color: #f5f5f5 !important;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.block-container {
+    padding-top: 1.5rem;
+}
+</style>
 
         /* KPI Cards */
         [data-testid="stMetricValue"] {
@@ -100,36 +112,23 @@ except Exception as e:
 def load_data(path):
     # ✅ Keep only columns useful for visualizations
     cols = [
-        "eventid", "iyear", "imonth", "iday",
-        "country_txt", "region_txt", "city",
+        "eventid", "country_txt", "region_txt", 
         "latitude", "longitude",
-        "attacktype1_txt", "targtype1_txt",
-        "weaptype1_txt", "gname",
-        "nkill", "nwound", "success", "suicide"
+        "attacktype1_txt", "gname","success","suicide",
+        "nkill", "nwound","targtype1_txt","weaptype1_txt","event_date"
     ]
 
     try:
         df = pd.read_csv(CSV_PATH, encoding="ISO-8859-1", low_memory=False)
         df = df[[c for c in cols if c in df.columns]]
 
-        # ✅ Keep only recent years to reduce size
-        df = df[df["iyear"] >= 2010]
-
-        # ✅ Random sampling for huge datasets
-        if len(df) > 30000:
-            df = df.sample(30000, random_state=42)
-
     except Exception as e:
         st.warning(f"GTD CSV not found or unreadable. Using sample data.\n{e}")
         df = pd.DataFrame({
             "eventid":[1,2,3,4,5],
-            "iyear":[2001,2005,2010,2015,2019],
-            "imonth":[9,6,1,12,7],
-            "iday":[11,15,5,20,3],
             "country_txt":["USA","Iraq","India","Syria","Nigeria"],
             "region_txt":["North America","Middle East & North Africa","South Asia",
                           "Middle East & North Africa","Sub-Saharan Africa"],
-            "city":["NY","Baghdad","Mumbai","Aleppo","Lagos"],
             "latitude":[40.7,33.3,19.0,36.2,6.5],
             "longitude":[-74,44,72,37,3],
             "attacktype1_txt":["Bombing/Explosion","Armed Assault","Bombing/Explosion",
@@ -139,23 +138,15 @@ def load_data(path):
             "gname":["Unknown","Group A","Group B","Group C","Group D"],
             "nkill":[3000,150,12,500,30],
             "nwound":[6000,200,30,1000,50],
-            "success":[1,1,1,1,1],
-            "suicide":[0,0,0,0,0]
+            "success": [1,1,1,1,1],
+            "suicide": [0,0,0,0,0]
         })
 
     # ✅ Ensure numeric fields are clean
     for col in ["nkill", "nwound"]:
         df[col] = pd.to_numeric(df.get(col, 0), errors="coerce").fillna(0)
 
-    # ✅ Construct event_date column
-    df["imonth"] = df["imonth"].replace(0, 1)
-    df["iday"] = df["iday"].replace(0, 1)
-    df["event_date"] = pd.to_datetime(
-        df["iyear"].astype(str) + "-" +
-        df["imonth"].astype(str).str.zfill(2) + "-" +
-        df["iday"].astype(str).str.zfill(2),
-        errors="coerce"
-    )
+   df["event_date"] = pd.to_datetime(df["event_date"], errors="coerce")
 
     return df
 
@@ -284,3 +275,4 @@ if not dff.empty:
 
 
 # In[19]:
+
